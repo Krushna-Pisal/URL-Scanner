@@ -1,0 +1,11 @@
+venv/
+.venv/
+__pycache__/
+data/raw/
+data/download/
+data/*.sqlite3
+models/
+*.joblib
+.env
+.pytest_cache/
+.pytest-tmp/

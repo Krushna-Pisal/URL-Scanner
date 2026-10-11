@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b2a">
+  <title>URL Threat Scanner</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="URL Threat Scanner home">
+      <span class="brand-mark" aria-hidden="true">盾</span>
+      <span>URL Threat Scanner</span>
+    </a>
+    <div class="service-status"><span class="status-dot" id="health-dot"></span><span id="health-text">Checking service…</span></div>
+  </header>
+
+  <main class="layout">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">URL RISK ANALYSIS</p>
+      <h1 id="page-title">Check a link<br><span>before you trust it.</span></h1>
+      <p class="intro-copy">Inspect URL characteristics for phishing signals. The scanner analyzes the address as text and never opens the destination.</p>
+      <div class="privacy-note"><span aria-hidden="true">●</span><span>String-only analysis · No destination requests</span></div>
+    </section>
+
+    <section class="card scan-card" aria-labelledby="scan-title">
+      <div class="card-heading"><div><p class="eyebrow">SCANNER</p><h2 id="scan-title">Analyze a URL</h2></div><span class="step-chip">01 / SCAN</span></div>
+      <form id="scan-form" novalidate>
+        <label for="url-input">URL to inspect</label>
+        <div class="input-wrap"><span aria-hidden="true">↗</span><input id="url-input" name="url" type="text" inputmode="url" autocomplete="url" maxlength="2048" placeholder="https://example.com/sign-in" required aria-describedby="url-help"></div>
+        <p id="url-help" class="field-help">Paste the full address. It will not be visited.</p>
+        <div id="api-key-wrap" class="api-key-wrap" hidden><label for="api-key-input">Scanner API key</label><input id="api-key-input" type="password" autocomplete="off" placeholder="Enter your scanner access key"><p class="field-help">Used for this page session only; it is not saved.</p></div>
+        <button id="scan-button" class="primary-button" type="submit"><span>Scan URL</span><span aria-hidden="true">→</span></button>
+        <p id="scan-error" class="error-message" role="alert" hidden></p>
+      </form>
+      <div class="trust-footnote"><span aria-hidden="true">i</span><p>A risk score is an estimate, not a guarantee that a URL is safe or malicious.</p></div>
+    </section>
+
+    <section id="result-section" class="card result-card" aria-labelledby="result-title" hidden aria-live="polite">
+      <div class="card-heading"><div><p class="eyebrow">ASSESSMENT</p><h2 id="result-title">Scan result</h2></div><span id="risk-badge" class="risk-badge">—</span></div>
+      <div class="score-row"><div class="score-ring" id="score-ring"><span id="score-value">—</span><small>risk score</small></div><div class="result-summary"><strong id="result-level">—</strong><p id="result-url"></p><small id="result-model"></small></div></div>
+      <div class="signals"><h3>Signals from the scanner</h3><ul id="reason-list"></ul><p id="no-reasons" class="field-help" hidden>No notable signals were returned for this URL.</p></div>
+      <details class="signals"><summary>Feature evidence and scoring details</summary><p class="field-help">The estimate is not calibrated as a probability. Rule signals are separate from the trained model score.</p><h4>Heuristic signals</h4><ul id="evidence-signals"></ul><h4>Model input feature values</h4><ul id="model-features"></ul><h4>Heuristic-only observations</h4><ul id="supplemental-features"></ul><p id="attribution-note" class="field-help"></p></details>
+      <div class="explain-area"><div class="explain-head"><div><h3>Plain-language explanation</h3><span id="explain-provider" class="provider-label">Deterministic explanation</span></div><button id="explain-button" class="secondary-button" type="button">Explain with AI</button></div><p id="explanation" class="explanation-copy"></p></div>
+      <div class="signals"><h3>Explanation details</h3><div id="explanation-sections"></div></div>
+      <p class="result-time" id="result-time"></p>
+    </section>
+
+    <section class="card history-card" aria-labelledby="history-title">
+      <div class="card-heading"><div><p class="eyebrow">RECENT ACTIVITY</p><h2 id="history-title">Scan history</h2></div><button id="refresh-history" class="icon-button" type="button" aria-label="Refresh scan history">↻</button></div>
+      <div id="history-content" class="history-content"><p class="muted">Loading recent scans…</p></div>
+    </section>
+    <footer><span>URL Threat Scanner</span><span>Lexical signals · No live threat intelligence</span></footer>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

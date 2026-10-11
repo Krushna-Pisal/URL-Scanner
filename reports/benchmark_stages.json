@@ -1,0 +1,30 @@
+{
+  "measurement": "stage comparison: extraction only; predict_proba on pre-extracted one-row frames; and end-to-end extraction plus frame construction plus predict_proba",
+  "execution_mode": "single process, sequential one-URL calls",
+  "python_version": "3.14.0",
+  "sample_size": 1000,
+  "source_rows": 115231,
+  "random_seed": 42,
+  "warmup_calls_per_stage": 100,
+  "warmup_timing": "excluded from each stage's throughput and latency",
+  "model_loading": "excluded; loaded once before warm-up",
+  "sample_selection_and_precomputation": "excluded from timing; same sampled URLs used for all stages",
+  "estimator_n_jobs": 1,
+  "stages": {
+    "feature_extraction": {
+      "throughput_urls_per_second": 1256.056547672454,
+      "p50_latency_ms": 0.698499999998603,
+      "p95_latency_ms": 1.4307650024420573
+    },
+    "model_inference_pre_extracted": {
+      "throughput_urls_per_second": 11.06170995691221,
+      "p50_latency_ms": 82.77344999805791,
+      "p95_latency_ms": 100.81267999776172
+    },
+    "full_end_to_end": {
+      "throughput_urls_per_second": 10.51681351635236,
+      "p50_latency_ms": 83.05290000134846,
+      "p95_latency_ms": 113.69128499572979
+    }
+  }
+}
