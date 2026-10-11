@@ -7,7 +7,7 @@ from typing import Any
 import joblib
 import pandas as pd
 
-from scanner.features import extract_features
+from scanner.features import extract_features, feature_extractor_fingerprint
 from scanner.evidence import build_scan_evidence
 
 
@@ -62,15 +62,24 @@ def _feature_frame(url: str, names: list[str]) -> pd.DataFrame:
 
 
 def predict(url: str) -> dict[str, Any]:
-    """Return phishing probability, named severity level, and plain reasons."""
+    """Return an uncalibrated classifier score, risk band, and plain reasons.
+
+    ``predict_proba`` supplies a ranking score. It is not calibrated to mean
+    the real-world probability that this URL is malicious.
+    """
     artifact = _load_artifact()
+    trained_feature_fingerprint = artifact.get("feature_extractor_sha256")
+    if trained_feature_fingerprint and trained_feature_fingerprint != feature_extractor_fingerprint():
+        raise RuntimeError(
+            "The model artifact was trained with different URL features; restart with a matching artifact."
+        )
     names = artifact["feature_names"]
     features = extract_features(url)
     frame = pd.DataFrame([[features.get(name, 0.0) for name in names]], columns=names)
-    probability = float(artifact["best_model"].predict_proba(frame)[0, 1])
-    if probability < LOW_THRESHOLD:
+    score = float(artifact["best_model"].predict_proba(frame)[0, 1])
+    if score < LOW_THRESHOLD:
         level = LOW
-    elif probability <= HIGH_THRESHOLD:
+    elif score <= HIGH_THRESHOLD:
         level = MEDIUM
     else:
         level = HIGH
@@ -106,7 +115,7 @@ def predict(url: str) -> dict[str, Any]:
                 }
     evidence = build_scan_evidence(
         url=url,
-        score=probability,
+        score=score,
         level=level,
         scoring_method="trained_classifier_predict_proba",
         model_name=best_name,
@@ -116,7 +125,7 @@ def predict(url: str) -> dict[str, Any]:
         model_version=artifact.get("artifact_version"),
     )
     return {
-        "probability": probability,
+        "score": score,
         "level": level,
         # These are transparent rule reasons and are distinct from model
         # attribution; a stacking score is not explained by another model.

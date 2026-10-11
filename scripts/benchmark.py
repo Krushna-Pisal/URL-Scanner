@@ -35,7 +35,7 @@ RANDOM_SEED = 42
 
 
 def _predict_one(url: str, artifact: dict) -> float:
-    """Extract one URL's features and return its phishing probability."""
+    """Extract one URL's features and return the uncalibrated model score."""
     features = extract_features(url)
     names = artifact["feature_names"]
     row = pd.DataFrame([[features.get(name, 0.0) for name in names]], columns=names)
@@ -59,7 +59,7 @@ def benchmark() -> dict[str, float | int | str]:
     sample = [randomizer.choice(urls) for _ in range(SAMPLE_SIZE)]
     artifact = joblib.load(MODEL_PATH)
     # Keep inference within this process; n_jobs changes execution only, not
-    # the fitted trees or the per-URL probability calculation.
+    # the fitted trees or the per-URL score calculation.
     prediction_model = artifact["best_model"]
     single_process_params = {
         name: 1 for name in prediction_model.get_params(deep=True)

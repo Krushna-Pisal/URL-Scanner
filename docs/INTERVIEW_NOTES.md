@@ -2,7 +2,7 @@
 
 ## Why group the train/test split by domain?
 
-URLs from the same site often share hostname spelling, subdomains, paths, and query patterns. A random row split can put one URL from a domain in training and another URL from the same domain in testing. The model then gets a familiar domain pattern in the test set, which can make it look like it handles new sites better than it really does. `GroupShuffleSplit` keeps each approximate registered-domain group on one side of the split. This project uses a simple last-two-label approximation, so suffixes such as `co.in` are a known limitation.
+URLs from the same site often share hostname spelling, subdomains, paths, and query patterns. A random row split can put one URL from a domain in training and another URL from the test fold. The model then gets a familiar domain pattern in testing, which can make it look like it handles new sites better than it really does. `StratifiedGroupKFold` keeps each registered-domain group on one side of each fold while trying to preserve class shares. The groups are derived offline with `tldextract`; raw IP addresses remain their own groups.
 
 ## What does stacking do?
 
@@ -22,7 +22,7 @@ The scanner is deliberately string-only. Fetching an attacker-controlled URL fro
 
 ## What is ablation?
 
-The training script finds the most important feature for the selected model, removes that one feature, and trains the selected model again on the same grouped split. It reports the new metrics and the difference from the full-feature run. This checks whether performance depends heavily on one signal. A large drop suggests that signal contributes substantially; a small change suggests the remaining features can provide similar information. Ablation is diagnostic, not proof that a feature causes the outcome.
+The training script selects the best learned model by mean recall at 1% FPR, then removes each of four predefined feature groups in separate runs: `digit_ratio`, `uses_https`, the banking-fraud features, and `is_url_shortener`. Each ablation uses the same grouped folds and reports its metrics beside the full-feature result. Ablation is diagnostic, not proof that a feature causes the outcome.
 
 ## How does Levenshtein distance work?
 
@@ -31,3 +31,11 @@ Levenshtein distance is the minimum number of single-character insertions, delet
 ## Dataset-bias risk
 
 The model learns from the examples and labels it receives. If phishing and legitimate examples come from different sources, time periods, or collection methods, it can learn those collection patterns instead of useful threat signals. Duplicate domains across a random split can also inflate results, which is why the project groups domains. Grouping does not fix bad labels, a narrow sample, source-specific patterns, or the approximate domain parser. High scores should be checked against the data and split before making security claims.
+
+## What does the UI score mean?
+
+The model's `predict_proba` output is used as an uncalibrated score between 0 and 1. It ranks model confidence but is not a measured real-world chance that a URL is malicious. The evaluation uses a fixed 0.50 cutoff to convert the score into a positive or negative prediction when calculating recall, precision, F1, and false-positive rate. The dashboard's LOW, MEDIUM, and HIGH labels are display bands: below 0.30, from 0.30 through 0.70, and above 0.70. Those risk bands are separate from the evaluation cutoff, so a MEDIUM score can be above or below the evaluation's 0.50 cutoff.
+
+## What does the score cache do?
+
+The trained model artifact is loaded once per process and cached. Replacing the artifact file does not update the in-memory model. Restart the application process to load a replacement; the project does not hot-reload models during requests.

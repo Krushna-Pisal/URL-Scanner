@@ -36,6 +36,8 @@ Includes banking-fraud signals motivated by a Bank of India hackathon proposal I
 
 Supply a CSV at `data/raw/urls.csv` with columns `url,label`, where `1` means phishing and `0` means legitimate. The raw data directory is ignored by Git; do not commit source datasets or derived records unless their licenses explicitly allow redistribution.
 
+The evaluation summarized below uses URL-Phish from Mendeley Data, DOI [10.17632/65z9twcx3r](https://doi.org/10.17632/65z9twcx3r), Version 2: 100,000 benign URLs from trusted institutional domains and 16,600 phishing URLs from PhishTank (November 2024 to September 2025). Obtain the dataset from its Mendeley Data record, check its current license and terms, and keep the downloaded source file out of Git. To prepare the scanner's input, place the downloaded CSV at `data/download/Dataset.csv` and run `python scripts/prepare_dataset.py`; the script emits `data/raw/urls.csv`.
+
 Possible phishing or malware URL sources include [PhishTank's verified online phishing feed](https://phishtank.org/developer_info.php) and [URLhaus data exports](https://urlhaus.abuse.ch/api/). PhishTank's bulk feed may require an application key for regular downloads; review its current developer terms and attribution requirements. URLhaus requires an Auth-Key for downloads, describes fair-use community access, and directs commercial use to its enhanced service and terms. Treat the sources as candidates for a research dataset, not interchangeable labels: URLhaus focuses on malware distribution and is not a general phishing-only source.
 
 For legitimate examples, use a documented, permitted source such as a dated [Tranco ranking](https://tranco-list.eu/) as a candidate list, or a hand-curated list of official domains. Popularity does not prove that a URL is safe, and a domain list is not equivalent to a verified legitimate URL label. Before downloading, training on, or redistributing any source, read the source's current license, terms, attribution rules, and rate limits. Record source, retrieval date, label definition, and any filtering in your own dataset notes. Keep the raw data private when redistribution rights are unclear.
@@ -47,7 +49,7 @@ python -m scripts.train
 python -m scripts.benchmark
 ```
 
-Training uses a domain-grouped held-out split and writes computed evaluation values to `reports/metrics.json`; it saves the selected estimator to `models/model.joblib`. The benchmark scores a seeded sample of 10,000 dataset rows and writes measured throughput and latency to `reports/benchmark.json`. Both reports are generated artifacts, not hand-entered results.
+`scripts.train` writes a single grouped train/test evaluation to `reports/metrics.json` and saves an estimator to `models/model.joblib`. For a reproducible five-fold grouped evaluation with resumable fold and ablation checkpoints, run `python scripts/evaluate_resumable.py`; use `--smoke` for a small correctness run and `--resume` to continue an existing full run. Full-run outputs are written to an isolated `reports/evaluation_runs/` directory so historical reports and the active model are not overwritten. The fresh results below were computed by that script. The benchmark measures in-process scoring of one URL per call, including feature extraction and model prediction; artifact loading and warm-up calls are excluded. Its sample size and timing setup are recorded in `reports/benchmark.json`.
 
 ## Docker
 
@@ -72,7 +74,7 @@ The response shape is shown with placeholders because its values are computed at
 ```json
 {
   "url": "https://example.com/login",
-  "score": "<computed probability from 0 to 1>",
+  "score": "<computed uncalibrated score from 0 to 1>",
   "level": "<LOW, MEDIUM, or HIGH>",
   "reasons": ["<plain-English feature reason, if any>"],
   "model": "<heuristic or trained_model>",
@@ -80,22 +82,28 @@ The response shape is shown with placeholders because its values are computed at
 }
 ```
 
+The score is a model output and is **not a calibrated probability**. The classifier's default decision cutoff is 0.5. The UI's LOW/MEDIUM/HIGH bands use 0.3 and 0.7 for presentation, so those labels do not change the classifier cutoff.
+
 `GET /history?limit=20` returns recent stored scans. `GET /health` is a public health check. Scan URLs are never fetched.
 
 ## Results
 
-The table below is populated only from generated report files. The training dataset has not been supplied in this checkout, so neither report is currently available and no measurements are shown.
+These fresh results are the mean ± standard deviation across five `StratifiedGroupKFold` test folds, grouped by registered domain, from `reports/evaluation_runs/full-7dda65c11dc56804/fresh_metrics.json`. Precision, recall, F1, ROC-AUC, and false-positive rate use the report's 0.5 classification cutoff; the heuristic threshold is selected on each training fold only. Values are dataset-specific and not a claim of real-world accuracy.
 
-| Report | Values |
-| --- | --- |
-| `reports/metrics.json` | Not generated: `data/raw/urls.csv` is absent |
-| `reports/benchmark.json` | Not generated: `data/raw/urls.csv` is absent |
+| Model | Precision | Recall | F1 | ROC-AUC | False-positive rate |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Heuristic baseline | 0.691 ± 0.050 | 0.624 ± 0.125 | 0.653 ± 0.094 | 0.797 ± 0.064 | 0.046 ± 0.005 |
+| Logistic regression | 0.543 ± 0.006 | 0.845 ± 0.091 | 0.660 ± 0.035 | 0.951 ± 0.014 | 0.119 ± 0.010 |
+| Random forest | 0.884 ± 0.017 | 0.687 ± 0.132 | 0.767 ± 0.094 | 0.959 ± 0.029 | 0.015 ± 0.002 |
+| Stacking | 0.776 ± 0.020 | 0.809 ± 0.120 | 0.789 ± 0.072 | 0.968 ± 0.015 | 0.039 ± 0.002 |
+
+The predeclared selection rule chooses stacking by mean recall at 1% FPR. Its reported recall at 1% FPR is 0.636 ± 0.121. Removing `digit_ratio`, `uses_https`, all four banking-fraud features, or `is_url_shortener` changed stacking mean recall at 1% FPR to 0.506 ± 0.139, 0.510 ± 0.124, 0.649 ± 0.104, and 0.609 ± 0.117, respectively. These are ablation results, not feature-tuning decisions.
+
+The measured benchmark in `reports/benchmark.json` used 1,000 URLs in one process, one URL per call, with 100 warm-up calls excluded and the model loaded once before timing: **15.00 URLs/sec**, p50 **61.71 ms**, p95 **98.84 ms**. It includes feature extraction and model prediction.
 
 ## CI
 
-[![CI](https://github.com/<owner>/<repository>/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/<repository>/actions/workflows/ci.yml)
-
-Replace `<owner>/<repository>` in the badge URL with the GitHub repository path after publishing the project.
+[![CI](https://github.com/Krushna-Pisal/URL-Scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/Krushna-Pisal/URL-Scanner/actions/workflows/ci.yml)
 
 ## Limitations
 
@@ -105,6 +113,7 @@ Replace `<owner>/<repository>` in the badge URL with the GitHub repository path 
 - The scanner cannot see what a page displays after navigation.
 - The configured brand list is small and does not cover every bank or payment service.
 - Attackers can use clean-looking URLs that evade lexical features.
-- The domain grouping in training uses a simple last-two-label approximation and can group some domains incorrectly.
+- Dataset diagnostics show substantial differences in URL length and query-string frequency between benign and phishing classes; these patterns may inflate evaluation results. Results are specific to this dataset, whose benign URLs are institutional websites, and do not establish real-world accuracy.
+- Grouping uses `tldextract` with its suffix-list network refresh disabled. This uses bundled public-suffix data but is not a universal domain identity boundary.
 
 Future work: add safe APK static analysis for linked Android packages without executing them.

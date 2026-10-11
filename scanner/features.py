@@ -8,6 +8,9 @@ conceal destination identity. Banking features detect lookalike brands,
 APK delivery, and common UPI lures. These are clues, not proof of fraud.
 """
 
+import hashlib
+import inspect
+import json
 from math import log2
 import re
 from urllib.parse import urlsplit
@@ -162,3 +165,23 @@ def extract_features(url: str) -> dict[str, float]:
             best_score >= 0.80 and registered not in {official}
         )
     return result
+
+
+def feature_extractor_fingerprint() -> str:
+    """Fingerprint the feature logic and settings for model provenance checks.
+
+    The model artifact stores this value so inference can detect a changed
+    feature implementation instead of silently feeding it different values.
+    """
+    implementation = "\n".join(inspect.getsource(function) for function in (
+        _levenshtein_distance, _normalize_brand_text, _registered_domain, extract_features,
+    ))
+    settings = json.dumps({
+        "suspicious_tlds": sorted(SUSPICIOUS_TLDS),
+        "url_shorteners": sorted(URL_SHORTENERS),
+        "brand_domains": BRAND_DOMAINS,
+        "brand_aliases": BRAND_ALIASES,
+        "suspicious_words": SUSPICIOUS_WORDS,
+        "upi_bait_words": UPI_BAIT_WORDS,
+    }, sort_keys=True)
+    return hashlib.sha256((implementation + settings).encode("utf-8")).hexdigest()
