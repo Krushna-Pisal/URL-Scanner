@@ -1,0 +1,14 @@
+{
+  "measurement": "in-process URL scoring: feature extraction plus trained model predict_proba, one URL per call",
+  "execution_mode": "single process, sequential calls",
+  "estimator_n_jobs": 1,
+  "python_version": "3.14.0",
+  "sample_size": 1000,
+  "source_rows": 115231,
+  "warmup_calls": 100,
+  "warmup_timing": "excluded from throughput and latency",
+  "model_load_timing": "excluded; artifact loaded once before warm-up",
+  "throughput_urls_per_second": 15.002184475582087,
+  "p50_latency_ms": 61.70574999850942,
+  "p95_latency_ms": 98.83804000055534
+}
