@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scanner.features import extract_features
+from scanner.features import extract_features, feature_extractor_fingerprint
 from scanner.heuristics import score_features
 
 
@@ -42,7 +42,7 @@ HTTPS_SHARE_GAP_WARNING = 0.20
 FOLD_PHISH_SHARE_GAP_WARNING = 0.05
 RECALL_FPR_TARGETS = (0.01, 0.05)
 URL_SCHEME_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*://")
-OFFLINE_EXTRACTOR = tldextract.TLDExtract(suffix_list_urls=())
+OFFLINE_EXTRACTOR = tldextract.TLDExtract(suffix_list_urls=(), cache_dir=None)
 METRIC_NAMES = (
     "recall", "false_positive_rate", "precision", "f1", "roc_auc",
     "recall_at_1pct_fpr", "recall_at_5pct_fpr",
@@ -510,6 +510,7 @@ def train() -> dict[str, Any]:
         "best_model_name": best_name,
         "logistic_model": logistic_model,
         "feature_names": feature_names,
+        "feature_extractor_sha256": feature_extractor_fingerprint(),
     }, MODEL_PATH)
 
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)

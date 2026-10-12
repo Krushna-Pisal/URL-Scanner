@@ -58,7 +58,7 @@ def _scan_url(url: str) -> dict[str, Any]:
 
         prediction = predict(url)
         return {
-            "score": prediction["probability"],
+            "score": prediction["score"],
             "level": prediction["level"],
             "reasons": [item["description"] for item in prediction["reasons"]],
             "model": "trained_model",

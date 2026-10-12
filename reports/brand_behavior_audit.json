@@ -1,0 +1,634 @@
+{
+  "audit_type": "targeted_diagnostic_not_population_estimate",
+  "label_source": "label column in data/raw/urls.csv; labels not independently verified",
+  "source_rows": 115231,
+  "feature_schema_matches_extractor": true,
+  "artifact_feature_fingerprint_present": false,
+  "artifact_feature_fingerprint_matches_current": null,
+  "model_name": "stacking",
+  "model_prediction_cutoff": 0.5,
+  "score_calibration": "uncalibrated predict_proba score used for ranking",
+  "selected_case_limit_per_category_per_label": 100,
+  "feature_flag_errors_over_dataset": {
+    "false_positive_count": 14,
+    "false_negative_count": 0,
+    "false_positive_examples": [
+      {
+        "url_sha256": "b65a11a1e6bc26b9de36f8c84ec585a8979f3d661f0da3e483c3a7234eb4d1a9",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "8bd994aa057945d2ec616b1fe1404f9a75aa98b2030789407239503ad011e10d",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "494dc8fdb1bbcd0128a4bb6a648dbc77f0d0bb809970e9213863e7555cd6288c",
+        "dataset_label": 0,
+        "brand_similarity": 1.0
+      },
+      {
+        "url_sha256": "2385cb116f37c903fc3768a1f5b6e6c4345b3cf7f4555274d8e1d820ac8f703e",
+        "dataset_label": 0,
+        "brand_similarity": 1.0
+      },
+      {
+        "url_sha256": "c635f49f8c23444f5a1cbc89eff4ba4b641af9cc10279230e6809475b0f65cd2",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "5db91a826137bcc1e5780dde1d4a7791b2914eed51adc78847e8b83b7a24d101",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "e6c7ffd8dc253b7832b862a20aa15a8416223b6080bc959f9b2a8ef922f41fb6",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "12be63a0464fec90ba0da4228dd158e05e1481c07d1569181c6191b98dbfe944",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "8886e8944decea56cf755da79489864b4d99cfb35390606a465af9ae945a4d4d",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "a8657708ef8df6877fc5143dbd2e9ad1177ea80cd7be48038df32433adf66116",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "fa9211f66af8e107b162d19c4d52bc9bb621505c866502b9d02d41dae3137b5b",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "3c8ccbc05a707215480d31ac7c21cd688649b881f1eb74a03ee6dd43f8ef2bbb",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      },
+      {
+        "url_sha256": "6674868427cfe0d925e1c6e930a37dbd6f0a51bdca055eb937771c8cd9de7d15",
+        "dataset_label": 0,
+        "brand_similarity": 1.0
+      },
+      {
+        "url_sha256": "3836d62694eae194a317743a9c8c0d085fabde01ed9a912de806ced4b7d33b11",
+        "dataset_label": 0,
+        "brand_similarity": 0.8
+      }
+    ],
+    "false_negative_examples": []
+  },
+  "targeted_model_cases": {
+    "dataset_benign_brand_mention_in_path_or_query": {
+      "dataset_label_rows": {
+        "0": 7,
+        "1": 0
+      },
+      "evaluated_rows_by_label": {
+        "0": 7,
+        "1": 0
+      },
+      "selected_rows": 7,
+      "model_false_positives_at_0_5": 0,
+      "model_false_negatives_at_0_5": 0,
+      "examples": [
+        {
+          "url_sha256": "3d272ce143e42cbdb52f090764a040a912ee515dc51f7312a18be38ccc6e85d4",
+          "dataset_label": 0,
+          "brand_similarity": 0.18181818181818177,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.030534641315736005,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "1662776ed6d13cd5a5d27c25a5a55a5607bba4a924a943b6eab1c4472f14f970",
+          "dataset_label": 0,
+          "brand_similarity": 0.15384615384615385,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.06222497706266709,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "ea38d374e1b13cfd541b293adb9c2512cb60cb862f38003cf53aea109044ce16",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.16222922312967844,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "c46fdc0802913a18ce1f8b64b8eb57d07a897d84c04068a8b7177f686d9ad846",
+          "dataset_label": 0,
+          "brand_similarity": 0.33333333333333337,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.030239820799222748,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "d5914fe2684f5922a5d2c19d9817aad0e49cd70270572aa15d4834b79e2ab347",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.0440757549523585,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "6aeddc82eff1796f31ff4bc652ba8dd7e977e93e2ddde502eb6f22b099de78f6",
+          "dataset_label": 0,
+          "brand_similarity": 0.1428571428571429,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.09969056484069912,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "f70407b6aa9f5f33c3ae9ff34e77df113bdbf72322d20e14aabf27807da0e149",
+          "dataset_label": 0,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.10782134042854971,
+          "model_prediction_at_0_5": 0
+        }
+      ]
+    },
+    "dataset_benign_brand_mention_in_subdomain": {
+      "dataset_label_rows": {
+        "0": 15,
+        "1": 0
+      },
+      "evaluated_rows_by_label": {
+        "0": 15,
+        "1": 0
+      },
+      "selected_rows": 15,
+      "model_false_positives_at_0_5": 0,
+      "model_false_negatives_at_0_5": 0,
+      "examples": [
+        {
+          "url_sha256": "da8e6ba3ce89dcb769d7587331c32080541da72794f1249d19bf3bd66abb70f6",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029539183121514268,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "b75bbe1a9a6f78310ceec6112c2bdef33322efe1300efa9860bc04114db9e114",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03258590121355407,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "dc8aad5a64537381bb067585d754fe2f7163b58b45f97a6f8d469630ece3d98e",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029962984834614046,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "f80da7b7805ec6b7ee47e65b800b7c0b3c4ced24b290f58463a7abc9d590232a",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029416774337769985,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "9e80a752dae6fef1ae3b994b4c80090a6388b1a35a7a8b5b882dad17775a656d",
+          "dataset_label": 0,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029368286639935667,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "2705568ba146a249d2f8ef1b150c4e172f8f441bb9b4d4b04e4b51a977ac2663",
+          "dataset_label": 0,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.0293367135725838,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "fd55d5e00f67847165f94fca8548c62319c8f9d5b84c6e13fbd3578f0fa2a6de",
+          "dataset_label": 0,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029376587929682414,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "bbcde950f16019013124bfd0f06c8e7d9e29ee3ed65f60cd02960ff1875df7f5",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029356181903513665,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "1d0f3e958f9d069beb4184c9fecde425af0f3e036256e39d895ff86842286709",
+          "dataset_label": 0,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029379843477426792,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "1a04790a147a84aacfbc5012f2a06187e22ca84a84f9fb25c9b20e9d34d64bd8",
+          "dataset_label": 0,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029372478597253806,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "bf3cc2773ddadbfee23870fb69e233936c3e20320ed30d6594260ded80dcaee9",
+          "dataset_label": 0,
+          "brand_similarity": 0.25,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.04515146079706275,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "fb19f091a191c491951672c4e89ed3937c879aace1e7eafccca997f2f9e63e7c",
+          "dataset_label": 0,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.029376587929682414,
+          "model_prediction_at_0_5": 0
+        }
+      ]
+    },
+    "dataset_benign_official_bank_domain": {
+      "dataset_label_rows": {
+        "0": 1,
+        "1": 0
+      },
+      "evaluated_rows_by_label": {
+        "0": 1,
+        "1": 0
+      },
+      "selected_rows": 1,
+      "model_false_positives_at_0_5": 0,
+      "model_false_negatives_at_0_5": 0,
+      "examples": [
+        {
+          "url_sha256": "89a21f1493846d6ebc1f3baa3c4d061160fa2c803f37064116bfcfd0348f605f",
+          "dataset_label": 0,
+          "brand_similarity": 1.0,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.22416623406357136,
+          "model_prediction_at_0_5": 0
+        }
+      ]
+    },
+    "dataset_labeled_brand_like_registered_domain": {
+      "dataset_label_rows": {
+        "0": 118,
+        "1": 12
+      },
+      "evaluated_rows_by_label": {
+        "0": 100,
+        "1": 12
+      },
+      "selected_rows": 112,
+      "model_false_positives_at_0_5": 5,
+      "model_false_negatives_at_0_5": 2,
+      "examples": [
+        {
+          "url_sha256": "e9ef4f46593d5d709be067d611cd0801004ae57a07dc442d4c75daa6a3803593",
+          "dataset_label": 0,
+          "brand_similarity": 0.2142857142857143,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.13104799824056895,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "f7fbf5a319fed1b92e9108eb30d77dba6f39782718d4cf9da02d01e6214fbb29",
+          "dataset_label": 0,
+          "brand_similarity": 0.2142857142857143,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03148005002578225,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "b72802fe682a13d0351dc4525bb679fbb7a2238d7733c9d658e67b5a0f824d7c",
+          "dataset_label": 0,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.034011985320547375,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "a88a312df8fb8311f6e010fcd9ee3a8445772bdeb9b5387a47f7cfda59264765",
+          "dataset_label": 0,
+          "brand_similarity": 0.375,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03046257858807709,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "030c23b39879daa73014e1dc354155db6563b4edec6ef3a6aef6fd0b3b135224",
+          "dataset_label": 0,
+          "brand_similarity": 0.30000000000000004,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03504049412880382,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "77866ad21fe7a696b143b37e8532e93237bef52623e7d7ca087e948f656e0a90",
+          "dataset_label": 0,
+          "brand_similarity": 0.30000000000000004,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.030623918078056516,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "eff14272b99d4295baf66b45e448f89c124ebffbf5bbb9e44e1884d95401aba7",
+          "dataset_label": 0,
+          "brand_similarity": 0.33333333333333337,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.030875769698470085,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "ecaa00a4ad42e29a1903e6fcd57d45c3ef04dab6ac78f1b52c546b4c9d2933a0",
+          "dataset_label": 0,
+          "brand_similarity": 0.375,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03053649974232922,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "65cba941041abfeed66b550fa7c5899b089bc12c488b295355b7dc74fe009d9d",
+          "dataset_label": 0,
+          "brand_similarity": 0.375,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.030583528862592663,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "fb73fe07f5e59c2feeb37bda77f31dae89d13855132c79a4114f66430db81f02",
+          "dataset_label": 0,
+          "brand_similarity": 0.5714285714285714,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.2475905697798359,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "451aa1392ca256070b014ebed92dfa1231615fee43d4194fb2b11942a5cd2504",
+          "dataset_label": 0,
+          "brand_similarity": 0.2857142857142857,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03186522467534057,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "7e63f83898808b46e74c0c7bb1d09e408270f45e9d92210e7f6eb29d570e2b67",
+          "dataset_label": 0,
+          "brand_similarity": 0.2666666666666667,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.03236595353820654,
+          "model_prediction_at_0_5": 0
+        }
+      ]
+    },
+    "dataset_phishing_brand_mention_in_path_or_query": {
+      "dataset_label_rows": {
+        "0": 0,
+        "1": 32
+      },
+      "evaluated_rows_by_label": {
+        "0": 0,
+        "1": 32
+      },
+      "selected_rows": 32,
+      "model_false_positives_at_0_5": 0,
+      "model_false_negatives_at_0_5": 0,
+      "examples": [
+        {
+          "url_sha256": "40ffd1704f6e4bfd13b54cd80af488b572a3796ebfe090772ba419df3542c245",
+          "dataset_label": 1,
+          "brand_similarity": 0.2857142857142857,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9935229157459449,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "c3e549fa6da74ef8daae2f2730051252171201de9e7a3e0abb5c76c48374d1aa",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9914531952887626,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "372638374dcd6aff8c08c495e7845ff44a224dad86a64fe15f7dbd16603f5bcb",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9906278724983875,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "361326fe02ab55b49208b4cf611f9aa470866e9ce052b1c18382047d755b1505",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9904258905712278,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "649c19bcca29a13991f984c0cae46caeb7e65bab76aac4ef62ca980fe2d3351e",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9904293313589978,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "c261db9c026265c99eb92c6571051a85852f428d6e7fb9b22653bfba71fc9f0d",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9904578908713729,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "70e148b9ece94c0d8b7c808ed1ef038d7ad7eaa72a7447e93b5ea5e9e6f5df63",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9904333894338649,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "c5c6c7d3c54923d593bfa71cf1c76ca59dc564dbd84a04704f8186fcc464bb01",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9912245074741345,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "3f07d1ad8f84858741d9c74b401e3eb8348a90cbe361a7ef31c05587048a24f4",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9907350795556927,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "69250c22285d6bcc3b3fca38c602d8b3459b5afee722450d44e38d03eaec76a5",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9900926956475901,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "ab4921feb08878a3c3e8e9ea9a24b3c6c1d384f85bdf06be421eb9a0e68cf6a4",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9894964374661074,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "93d37a91820197f9789f1f1c4716e813f2fd79a24dd9f7bc12c8364eec5300a2",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9912208983241946,
+          "model_prediction_at_0_5": 1
+        }
+      ]
+    },
+    "dataset_phishing_brand_mention_in_subdomain": {
+      "dataset_label_rows": {
+        "0": 0,
+        "1": 57
+      },
+      "evaluated_rows_by_label": {
+        "0": 0,
+        "1": 57
+      },
+      "selected_rows": 57,
+      "model_false_positives_at_0_5": 0,
+      "model_false_negatives_at_0_5": 5,
+      "examples": [
+        {
+          "url_sha256": "e160c0c1fcf90adf51004108d48fb91f9f088d36ea8cbcbbd29a8ee846d702c2",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.734063697938336,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "4f50453146daca76fcbcb2a33a7ff84634f599ed5765b4af24b7a0c93084bdcb",
+          "dataset_label": 1,
+          "brand_similarity": 0.4,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.990018718370186,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "2c843d17d5a0a7000aed176fcefae932086b217480f878531d4800263e483c19",
+          "dataset_label": 1,
+          "brand_similarity": 0.3076923076923077,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9915114790730205,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "04f6a37b8352ebdc0db6ed2bb7784b840a741abdf003aa781af72862ed76e6df",
+          "dataset_label": 1,
+          "brand_similarity": 0.11111111111111116,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.6078321215566566,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "6cd31886919ba6eacf7e076fb7bf2e02cccaf1b7d881a13a26877a9100065741",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.7034021578767948,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "0ffe307fe34e642cd855bc771e8d855e51840af28b39dc12c8a5be8e5e7a8be6",
+          "dataset_label": 1,
+          "brand_similarity": 0.33333333333333337,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9898258670039893,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "cbd332e731f8b9c9d9417ae63fc0384d8b70a9c27cfd00759c8f8bbe90539197",
+          "dataset_label": 1,
+          "brand_similarity": 0.2222222222222222,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.7002489921507101,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "bf00daf32e1b3ea0c48c5cad7ce1110e1ffbbb1449cff75fe8a674ab25a6435c",
+          "dataset_label": 1,
+          "brand_similarity": 0.33333333333333337,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.2517609817154727,
+          "model_prediction_at_0_5": 0
+        },
+        {
+          "url_sha256": "6e233ca409828779f7e82078fe1dde5475789afe43d7bc3b560833283d0f63da",
+          "dataset_label": 1,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.639754646097072,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "d7b15f42f2377f2caf737911bc89810280cb68d93b878ba0657a1a7322f3db12",
+          "dataset_label": 1,
+          "brand_similarity": 0.33333333333333337,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.9904226837058545,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "af50d1f3f458195329e94133bc4606f512499c63c00395f9465f02173d93779b",
+          "dataset_label": 1,
+          "brand_similarity": 0.15384615384615385,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.5753086122411535,
+          "model_prediction_at_0_5": 1
+        },
+        {
+          "url_sha256": "f73cb6d41d67349b40a2c4aef374a2631cf24b3247abe4959a07c6c5b7390138",
+          "dataset_label": 1,
+          "brand_similarity": 0.19999999999999996,
+          "brand_impersonation_flag": 0.0,
+          "model_score": 0.667947013412871,
+          "model_prediction_at_0_5": 1
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Dataset labels may be noisy and do not independently verify official ownership or malicious behavior.",
+    "Case selection is rule-targeted and is not random; counts are not statistically significant estimates.",
+    "URLs are represented by hashes so the report does not reproduce dataset URLs."
+  ]
+}

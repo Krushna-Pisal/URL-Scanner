@@ -82,8 +82,8 @@ function showScan(scan) {
   byId("risk-badge").textContent = scan.level + " RISK";
   byId("risk-badge").className = "risk-badge " + scan.level;
   byId("score-ring").className = "score-ring " + scan.level;
-  byId("score-value").textContent = (Number(scan.score) * 100).toFixed(1) + "%";
-  byId("result-level").textContent = scan.level + " risk estimate";
+  byId("score-value").textContent = Number(scan.score).toFixed(2);
+  byId("result-level").textContent = scan.level + " risk band";
   byId("result-url").textContent = scan.url;
   byId("result-model").textContent = "Scoring method: " + scan.model;
   renderEvidence(scan.evidence);
@@ -132,7 +132,7 @@ async function loadHistory() {
       });
       const meta = document.createElement("span");
       meta.className = "history-meta";
-      meta.textContent = (Number(scan.score) * 100).toFixed(1) + "% · " + new Date(scan.scanned_at).toLocaleDateString();
+      meta.textContent = "score " + Number(scan.score).toFixed(2) + " · " + new Date(scan.scanned_at).toLocaleDateString();
       const level = document.createElement("span");
       level.className = "history-level " + scan.level;
       level.textContent = scan.level;

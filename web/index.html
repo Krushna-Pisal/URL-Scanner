@@ -34,12 +34,12 @@
         <button id="scan-button" class="primary-button" type="submit"><span>Scan URL</span><span aria-hidden="true">→</span></button>
         <p id="scan-error" class="error-message" role="alert" hidden></p>
       </form>
-      <div class="trust-footnote"><span aria-hidden="true">i</span><p>A risk score is an estimate, not a guarantee that a URL is safe or malicious.</p></div>
+      <div class="trust-footnote"><span aria-hidden="true">i</span><p>The 0–1 risk score is uncalibrated and is not a probability of maliciousness. Risk bands are LOW below 0.30, MEDIUM from 0.30 through 0.70, and HIGH above 0.70. Evaluation uses a separate 0.50 cutoff to turn model scores into positive or negative labels.</p></div>
     </section>
 
     <section id="result-section" class="card result-card" aria-labelledby="result-title" hidden aria-live="polite">
       <div class="card-heading"><div><p class="eyebrow">ASSESSMENT</p><h2 id="result-title">Scan result</h2></div><span id="risk-badge" class="risk-badge">—</span></div>
-      <div class="score-row"><div class="score-ring" id="score-ring"><span id="score-value">—</span><small>risk score</small></div><div class="result-summary"><strong id="result-level">—</strong><p id="result-url"></p><small id="result-model"></small></div></div>
+      <div class="score-row"><div class="score-ring" id="score-ring"><span id="score-value">—</span><small>score (0–1)</small></div><div class="result-summary"><strong id="result-level">—</strong><p id="result-url"></p><small id="result-model"></small></div></div>
       <div class="signals"><h3>Signals from the scanner</h3><ul id="reason-list"></ul><p id="no-reasons" class="field-help" hidden>No notable signals were returned for this URL.</p></div>
       <details class="signals"><summary>Feature evidence and scoring details</summary><p class="field-help">The estimate is not calibrated as a probability. Rule signals are separate from the trained model score.</p><h4>Heuristic signals</h4><ul id="evidence-signals"></ul><h4>Model input feature values</h4><ul id="model-features"></ul><h4>Heuristic-only observations</h4><ul id="supplemental-features"></ul><p id="attribution-note" class="field-help"></p></details>
       <div class="explain-area"><div class="explain-head"><div><h3>Plain-language explanation</h3><span id="explain-provider" class="provider-label">Deterministic explanation</span></div><button id="explain-button" class="secondary-button" type="button">Explain with AI</button></div><p id="explanation" class="explanation-copy"></p></div>

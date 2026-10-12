@@ -4,6 +4,7 @@ __pycache__/
 data/raw/
 data/download/
 data/*.sqlite3
+reports/evaluation_runs/
 models/
 *.joblib
 .env
