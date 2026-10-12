@@ -1,6 +1,6 @@
 # URL Threat Scanner
 
-URL Threat Scanner is a small, explainable phishing-risk prototype. It extracts lexical features from a URL string, combines a transparent rule score with optional scikit-learn classifiers, and exposes scan results through a FastAPI service backed by SQLite. It never opens the supplied URL or makes DNS, WHOIS, or other network lookups.
+URL Threat Scanner is a explainable phishing-risk prototype. It extracts lexical features from a URL string, combines a transparent rule score with optional scikit-learn classifiers, and exposes scan results through a FastAPI service backed by SQLite. It never opens the supplied URL or makes DNS, WHOIS, or other network lookups.
 
 ## Architecture
 
